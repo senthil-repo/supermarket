@@ -1,5 +1,7 @@
 package kata.supermarket;
 
+import kata.supermarket.item.Item;
+
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
