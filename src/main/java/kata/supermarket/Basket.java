@@ -1,5 +1,6 @@
 package kata.supermarket;
 
+import kata.supermarket.discount.DiscountProcessor;
 import kata.supermarket.item.Item;
 
 import java.math.BigDecimal;
@@ -15,16 +16,27 @@ public class Basket {
         this.items = new ArrayList<>();
     }
 
-    public void add(final Item item) {
+/*    public void add(final Item item) {
         this.items.add(item);
-    }
+    }*/
 
-    List<Item> items() {
+    public List<Item> items() {
         return Collections.unmodifiableList(items);
     }
 
     public BigDecimal total() {
-        return new TotalCalculator().calculate();
+        //Before discount
+        TotalCalculator totalCalculator = new TotalCalculator();
+        System.out.println(" Total price before discount "+totalCalculator.subtotal());
+
+        //After discount
+        DiscountProcessor discountProcessor = new DiscountProcessor();
+        discountProcessor.processDiscounts(this);
+
+        BigDecimal finalPrice = totalCalculator.calculate();
+        System.out.println(" Total price after discount "+finalPrice);
+
+        return finalPrice;
     }
 
     private class TotalCalculator {
@@ -41,6 +53,15 @@ public class Basket {
                     .setScale(2, RoundingMode.HALF_UP);
         }
 
+        private BigDecimal subtotal_DiscountPrice() {
+            BigDecimal discountPrice = items.stream().filter(item -> item.hasDiscountApplied()).map(Item::getPriceAfterDiscount)
+                    .reduce(BigDecimal::add)
+                    .orElse(BigDecimal.ZERO)
+                    .setScale(2, RoundingMode.HALF_UP);
+            System.out.println(" Discount price "+discountPrice);
+            return discountPrice;
+        }
+
         /**
          * TODO: This could be a good place to apply the results of
          *  the discount calculations.
@@ -53,7 +74,7 @@ public class Basket {
         }
 
         private BigDecimal calculate() {
-            return subtotal().subtract(discounts());
+            return subtotal().subtract(subtotal_DiscountPrice());
         }
     }
 }
