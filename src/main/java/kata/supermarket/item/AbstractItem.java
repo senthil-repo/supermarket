@@ -1,5 +1,5 @@
 package kata.supermarket.item;
-import kata.supermarket.product.UnitProduct;
+import kata.supermarket.product.Product;
 
 import java.math.BigDecimal;
 
@@ -9,7 +9,7 @@ import java.math.BigDecimal;
 public abstract class AbstractItem implements Item{
     BigDecimal priceAfterDiscount;
     boolean hasDiscountApplied;
-    UnitProduct product;
+    Product product;
 
     @Override
     public void setPriceAfterDiscount(BigDecimal priceAfterDiscount) {
@@ -32,7 +32,8 @@ public abstract class AbstractItem implements Item{
     }
 
     @Override
-    public UnitProduct product() {
+    public Product product() {
         return this.product;
     }
+
 }

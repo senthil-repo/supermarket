@@ -1,12 +1,13 @@
 package kata.supermarket.item;
 
+import kata.supermarket.product.Product;
 import kata.supermarket.product.UnitProduct;
 
 import java.math.BigDecimal;
 
 public class ItemByUnit extends AbstractItem {
 
-    public ItemByUnit(final UnitProduct product) {
+    public ItemByUnit(final Product product) {
         super.product = product;
         setPriceAfterDiscount(this.price());
     }

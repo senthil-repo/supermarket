@@ -27,8 +27,13 @@ public class Discount_BuyOneGetOneSingle implements DiscountRule {
     }
 
     /**
-     * Following logic applied:
-     *  - Check the eligibility -
+     * If the discount not applied already & the item is present in the list of eligible products,
+     * then consider those for processing.
+     * Offer will be applied only up-to the maximum number of even quantities
+     * E.g - for a list of 5 items, only 4 can be considered for discount.
+     * The remaining one has to be fully paid 
+     * Update the price of the respective sub-set of items as ‘0’ and set a flag on the eligible
+     * list to indicate that the offer is applied on these items.
      *
      * @param basket
      */

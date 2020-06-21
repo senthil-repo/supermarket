@@ -16,9 +16,9 @@ public class Basket {
         this.items = new ArrayList<>();
     }
 
-/*    public void add(final Item item) {
+    public void add(final Item item) {
         this.items.add(item);
-    }*/
+    }
 
     public List<Item> items() {
         return Collections.unmodifiableList(items);
