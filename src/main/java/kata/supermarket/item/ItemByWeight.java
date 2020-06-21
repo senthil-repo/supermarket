@@ -1,21 +1,26 @@
 package kata.supermarket.item;
 
-import kata.supermarket.item.Item;
-import kata.supermarket.product.WeighedProduct;
+import kata.supermarket.product.UnitProduct;
 
 import java.math.BigDecimal;
 
-public class ItemByWeight implements Item {
+public class ItemByWeight extends AbstractItem  {
 
-    private final WeighedProduct product;
+    private final UnitProduct product;
     private final BigDecimal weightInKilos;
 
-    ItemByWeight(final WeighedProduct product, final BigDecimal weightInKilos) {
+    public ItemByWeight(final UnitProduct product, final BigDecimal weightInKilos) {
         this.product = product;
         this.weightInKilos = weightInKilos;
     }
 
+    @Override
+    public UnitProduct product() {
+        return this.product;
+    }
+
+    @Override
     public BigDecimal price() {
-        return null;
+        return product.price().multiply(weightInKilos).setScale(2, BigDecimal.ROUND_HALF_UP);
     }
 }

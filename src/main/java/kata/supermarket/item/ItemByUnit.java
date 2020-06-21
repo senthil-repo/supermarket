@@ -1,19 +1,17 @@
 package kata.supermarket.item;
 
-import kata.supermarket.item.Item;
-import kata.supermarket.product.Product;
+import kata.supermarket.product.UnitProduct;
 
 import java.math.BigDecimal;
 
-public class ItemByUnit implements Item {
+public class ItemByUnit extends AbstractItem {
 
-    private final Product product;
-
-    ItemByUnit(final Product product) {
-        this.product = product;
+    public ItemByUnit(final UnitProduct product) {
+        super.product = product;
+        setPriceAfterDiscount(this.price());
     }
 
     public BigDecimal price() {
-        return product.pricePerUnit();
+        return product.price();
     }
 }
